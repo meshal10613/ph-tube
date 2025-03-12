@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PH Tube</title>
+    <link rel="shortcut icon" href="./Icon.png" type="image/x-icon">
+    <!-- Daisy UI & Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Font Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <style>
+        .font-inter{
+            font-family: "Inter", sans-serif;
+        }
+        .active{
+            background-color: #FF1F3D;
+            color: white;
+        }
+    </style>
+</head>
+<body class=".font-inter">
+    <header>
+        <nav class="w-11/12 mx-auto flex justify-between items-center border-b-2 border-[#17171720] py-3 md:py-5">
+            <div class="logo">
+                <img class="w-[120px] cursor-pointer" src="./Logo.png" alt="">
+            </div>
+            <div class="sort">
+                <button class="btn rounded">Sort by View</button>
+            </div>
+            <div class="blogs">
+                <button class="btn text-white bg-[#FF1F3D] rounded">Blogs</button>
+            </div>
+        </nav>
+    </header>
+    <nav id="category-container" class="flex py-5 justify-center gap-5">
+        <div>
+            <button onclick="loadVedio()" class="btn btn-sm px-4 text-white bg-[#FF1F3D]">All</button>
+        </div>
+    </nav>
+
+    <section id="vedio-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-11/12 mx-auto gap-5">
+        <div class="py-20 col-span-full flex flex-col justify-center items-center text-center gap-5">
+            <img class="w-[200px]" src="./Icon.png" alt="">
+            <h1 class="font-bold text-3xl">Oops!! Sorry, There is no content here</h1>
+        </div>
+    </section>
+    <script src="./script/index.js"></script>
+</body>
+</html>
