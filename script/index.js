@@ -1,3 +1,10 @@
+function removeActiceClass(){
+    const activeBtn = document.getElementsByClassName('active');
+    for(let btn of activeBtn){
+        btn.classList.remove("active");
+    }
+}
+
 function loadCategories(){
     //1 fetch data
     fetch("https://openapi.programming-hero.com/api/phero-tube/categories")
@@ -16,23 +23,59 @@ function displayCategories(categories){
     }
 };
 
-function loadVedio(){
-    fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
+function loadVedio(searchText = ""){
+    fetch(`https://openapi.programming-hero.com/api/phero-tube/videos?title=${searchText}`)
         .then(res => res.json())
-        .then(data => displayVedios(data.videos))
+        .then(data => {
+            removeActiceClass();
+            document.getElementById("btn-all").classList.add("active")
+            displayVedios(data.videos)
+        })
 };
 
 const loadCategoryVedio = (id) => {
     const url = `https://openapi.programming-hero.com/api/phero-tube/category/${id}`;
-    console.log(url);
+    // console.log(url);
     fetch(url)
         .then(res => res.json())
         .then(data => {
+            removeActiceClass();
             const clickedBtn = document.getElementById(`${id}`);
-            clickedBtn.classList.add("active")
-            console.log(clickedBtn);
+            clickedBtn.classList.add("active");
             displayVedios(data.category)
         })
+}
+
+const loadVedioDeatails = (vedioId) => {
+    const url = `https://openapi.programming-hero.com/api/phero-tube/video/${vedioId}`;
+    fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            displayVedioDeatails(data.video)
+        })
+};
+
+const displayVedioDeatails = (video) => {
+    // console.log(video);
+    document.getElementById("vedio_deatails").showModal();
+    const deatailsContainer = document.getElementById("deatails-container");
+    deatailsContainer.innerHTML = `
+    <div class="card bg-base-100 image-full w-96 shadow-sm mx-auto">
+        <figure>
+            <img
+            src="${video.thumbnail}"
+            alt="Shoes" />
+        </figure>
+        <div class="card-body">
+            <h1 class="flex gap-1">
+                ${video.authors[0].profile_name}
+                ${video.authors[0].verified == true ? `<img width="20" height="20" src="https://img.icons8.com/skeuomorphism/32/verified-badge.png" alt="verified-badge"/> ` : '' }
+            </h1>
+            <h2 class="card-title">${video.title}</h2>
+            <p>${video.description}</p>
+        </div>
+    </div>
+    `;
 }
 
 const displayVedios = (vedios) => {
@@ -48,7 +91,7 @@ const displayVedios = (vedios) => {
         return;
     }
     vedios.forEach(vedio => {
-        // console.log(vedio)
+        // console.log(vedio);
         const vedioCart = document.createElement("div");
         vedioCart.innerHTML = `
         <div class="card bg-base-100">
@@ -70,19 +113,27 @@ const displayVedios = (vedios) => {
                     <h2 class="text-xl font-semibold">${vedio.title}</h2>
                     <h3 class="text-sm text-gray-400 flex gap-1">
                         ${vedio.authors[0].profile_name}
-                        <img width="20" height="20" src="https://img.icons8.com/skeuomorphism/32/verified-badge.png" alt="verified-badge"/>
+                        ${vedio.authors[0].verified == true ? 
+                            `<img width="20" height="20" src="https://img.icons8.com/skeuomorphism/32/verified-badge.png" alt="verified-badge"/>`
+                            : '' }
                     </h3>
                     <p class="text-sm text-gray-400">${vedio.others.views} views</p>
                 </div>
             </div>
-            </div>
+            <button onclick = loadVedioDeatails("${vedio.video_id}") class="btn btn-block">Show Deatails</button>
+        </div>
         `;
         vedioContainer.appendChild(vedioCart);
     });
 }
 
-
-
+document.getElementById("search-input")
+    .addEventListener("keyup",
+        (event) => {
+            const input = event.target.value;
+            loadVedio(input);
+        }
+    )
 
 loadCategories()
 loadVedio();
