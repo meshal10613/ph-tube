@@ -151,4 +151,4 @@ document.getElementById("search-input")
     )
 
 loadCategories()
-// loadVedio();
+loadVedio();
