@@ -39,11 +39,16 @@
             </div>
         </nav>
     </header>
+
     <nav id="category-container" class="flex py-5 justify-center gap-5">
         <div>
             <button id="btn-all" onclick="loadVedio()" class="btn btn-sm px-4 hover:text-white hover:bg-[#FF1F3D]">All</button>
         </div>
     </nav>
+
+    <section id="loader" class="text-center py-10 hidden">
+        <span class="loading loading-spinner loading-xl"></span>
+    </section>
 
     <section id="vedio-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-11/12 mx-auto gap-5">
         <div class="py-20 col-span-full flex flex-col justify-center items-center text-center gap-5">
@@ -51,8 +56,6 @@
             <h1 class="font-bold text-3xl">Oops!! Sorry, There is no content here</h1>
         </div>
     </section>
-    <!-- Open the modal using ID.showModal() method -->
-    <!-- <button class="btn" onclick="my_modal_1.showModal()">open modal</button> -->
     <dialog id="vedio_deatails" class="modal">
     <div class="modal-box">
         <div id="deatails-container">
